@@ -1,5 +1,5 @@
 # Altera-Based FPGA LVDS LCD Driver
-This project is driving LCDs with LVDS signal input(AUO G070VW01 V0) using Altera Cyclone IV EP4CE10F7C8N
+This project is driving LCDs with LVDS signal input(AUO G070VW01 V0) using Altera Cyclone IV EP4CE10F17C8N
 
 ## what could it do now
 Display full-screen switching color animation.
