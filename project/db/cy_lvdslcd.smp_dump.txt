@@ -1,0 +1,6 @@
+
+State Machine - |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate
+Name colorstate.0000 colorstate.0010 colorstate.0001 
+colorstate.0000 0 0 0 
+colorstate.0001 1 0 1 
+colorstate.0010 1 1 0 
