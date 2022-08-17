@@ -1,5 +1,5 @@
 Analysis & Synthesis report for cy_lvdslcd
-Mon Aug  8 19:14:27 2022
+Tue Aug  9 17:11:49 2022
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -14,24 +14,25 @@ Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Analysis & Synthesis IP Cores Summary
-  9. State Machine - |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate
- 10. Registers Removed During Synthesis
- 11. Removed Registers Triggering Further Register Optimizations
- 12. General Register Statistics
- 13. Inverted Register Statistics
- 14. Multiplexer Restructuring Statistics (Restructuring Performed)
- 15. Source assignments for lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated
- 16. Source assignments for lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_ddio_out:ddio_out
- 17. Source assignments for lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_ddio_out1:outclock_ddio
- 18. Parameter Settings for User Entity Instance: lcdpll:lcdpll_inst|altpll:altpll_component
- 19. Parameter Settings for User Entity Instance: lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component
- 20. Parameter Settings for User Entity Instance: ltdc_de:ltdcrgb
- 21. altpll Parameter Settings by Entity Instance
- 22. Port Connectivity Checks: "lcdpll:lcdpll_inst"
- 23. Post-Synthesis Netlist Statistics for Top Partition
- 24. Elapsed Time Per Partition
- 25. Analysis & Synthesis Messages
- 26. Analysis & Synthesis Suppressed Messages
+  9. State Machine - |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate_frame
+ 10. State Machine - |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate_line
+ 11. Registers Removed During Synthesis
+ 12. Removed Registers Triggering Further Register Optimizations
+ 13. General Register Statistics
+ 14. Inverted Register Statistics
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Source assignments for lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated
+ 17. Source assignments for lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_ddio_out:ddio_out
+ 18. Source assignments for lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_ddio_out1:outclock_ddio
+ 19. Parameter Settings for User Entity Instance: lcdpll:lcdpll_inst|altpll:altpll_component
+ 20. Parameter Settings for User Entity Instance: lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component
+ 21. Parameter Settings for User Entity Instance: ltdc_de:ltdcrgb
+ 22. altpll Parameter Settings by Entity Instance
+ 23. Port Connectivity Checks: "lcdpll:lcdpll_inst"
+ 24. Post-Synthesis Netlist Statistics for Top Partition
+ 25. Elapsed Time Per Partition
+ 26. Analysis & Synthesis Messages
+ 27. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -58,15 +59,15 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Aug  8 19:14:27 2022       ;
+; Analysis & Synthesis Status        ; Successful - Tue Aug  9 17:11:49 2022       ;
 ; Quartus Prime Version              ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                      ; cy_lvdslcd                                  ;
 ; Top-level Entity Name              ; cy_lvdslcd                                  ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 379                                         ;
-;     Total combinational functions  ; 251                                         ;
-;     Dedicated logic registers      ; 268                                         ;
-; Total registers                    ; 278                                         ;
+; Total logic elements               ; 622                                         ;
+;     Total combinational functions  ; 470                                         ;
+;     Dedicated logic registers      ; 325                                         ;
+; Total registers                    ; 335                                         ;
 ; Total pins                         ; 7                                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
@@ -208,20 +209,20 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+------------------------------------------------------------------------------------------------------+
 ; Resource                                    ; Usage                                                                                                ;
 +---------------------------------------------+------------------------------------------------------------------------------------------------------+
-; Estimated Total logic elements              ; 379                                                                                                  ;
+; Estimated Total logic elements              ; 622                                                                                                  ;
 ;                                             ;                                                                                                      ;
-; Total combinational functions               ; 251                                                                                                  ;
+; Total combinational functions               ; 470                                                                                                  ;
 ; Logic element usage by number of LUT inputs ;                                                                                                      ;
-;     -- 4 input functions                    ; 47                                                                                                   ;
-;     -- 3 input functions                    ; 73                                                                                                   ;
-;     -- <=2 input functions                  ; 131                                                                                                  ;
+;     -- 4 input functions                    ; 194                                                                                                  ;
+;     -- 3 input functions                    ; 104                                                                                                  ;
+;     -- <=2 input functions                  ; 172                                                                                                  ;
 ;                                             ;                                                                                                      ;
 ; Logic elements by mode                      ;                                                                                                      ;
-;     -- normal mode                          ; 171                                                                                                  ;
-;     -- arithmetic mode                      ; 80                                                                                                   ;
+;     -- normal mode                          ; 344                                                                                                  ;
+;     -- arithmetic mode                      ; 126                                                                                                  ;
 ;                                             ;                                                                                                      ;
-; Total registers                             ; 278                                                                                                  ;
-;     -- Dedicated logic registers            ; 268                                                                                                  ;
+; Total registers                             ; 335                                                                                                  ;
+;     -- Dedicated logic registers            ; 325                                                                                                  ;
 ;     -- I/O registers                        ; 20                                                                                                   ;
 ;                                             ;                                                                                                      ;
 ; I/O pins                                    ; 7                                                                                                    ;
@@ -233,8 +234,8 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;                                                                                                      ;
 ; Maximum fan-out node                        ; lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|fast_clock ;
 ; Maximum fan-out                             ; 191                                                                                                  ;
-; Total fan-out                               ; 1339                                                                                                 ;
-; Average fan-out                             ; 2.48                                                                                                 ;
+; Total fan-out                               ; 2288                                                                                                 ;
+; Average fan-out                             ; 2.80                                                                                                 ;
 +---------------------------------------------+------------------------------------------------------------------------------------------------------+
 
 
@@ -243,7 +244,7 @@ https://fpgasoftware.intel.com/eula.
 +------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+--------------+
 ; Compilation Hierarchy Node                           ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                          ; Entity Name             ; Library Name ;
 +------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+--------------+
-; |cy_lvdslcd                                          ; 251 (9)             ; 268 (25)                  ; 0           ; 0            ; 0       ; 0         ; 7    ; 0            ; |cy_lvdslcd                                                                                                                                  ; cy_lvdslcd              ; work         ;
+; |cy_lvdslcd                                          ; 470 (1)             ; 325 (25)                  ; 0           ; 0            ; 0       ; 0         ; 7    ; 0            ; |cy_lvdslcd                                                                                                                                  ; cy_lvdslcd              ; work         ;
 ;    |lcd_serdes_tx:tx_auo|                            ; 90 (0)              ; 184 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cy_lvdslcd|lcd_serdes_tx:tx_auo                                                                                                             ; lcd_serdes_tx           ; work         ;
 ;       |altlvds_tx:ALTLVDS_TX_component|              ; 90 (0)              ; 184 (0)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cy_lvdslcd|lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component                                                                             ; altlvds_tx              ; work         ;
 ;          |lcd_serdes_tx_lvds_tx:auto_generated|      ; 90 (12)             ; 184 (115)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cy_lvdslcd|lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated                                        ; lcd_serdes_tx_lvds_tx   ; work         ;
@@ -264,7 +265,7 @@ https://fpgasoftware.intel.com/eula.
 ;    |lcdpll:lcdpll_inst|                              ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cy_lvdslcd|lcdpll:lcdpll_inst                                                                                                               ; lcdpll                  ; work         ;
 ;       |altpll:altpll_component|                      ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cy_lvdslcd|lcdpll:lcdpll_inst|altpll:altpll_component                                                                                       ; altpll                  ; work         ;
 ;          |lcdpll_altpll:auto_generated|              ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cy_lvdslcd|lcdpll:lcdpll_inst|altpll:altpll_component|lcdpll_altpll:auto_generated                                                          ; lcdpll_altpll           ; work         ;
-;    |ltdc_de:ltdcrgb|                                 ; 152 (152)           ; 59 (59)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cy_lvdslcd|ltdc_de:ltdcrgb                                                                                                                  ; ltdc_de                 ; work         ;
+;    |ltdc_de:ltdcrgb|                                 ; 379 (379)           ; 116 (116)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cy_lvdslcd|ltdc_de:ltdcrgb                                                                                                                  ; ltdc_de                 ; work         ;
 +------------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -280,15 +281,33 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 
 Encoding Type:  One-Hot
-+-----------------------------------------------------------------------+
-; State Machine - |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate                ;
-+-----------------+-----------------+-----------------+-----------------+
-; Name            ; colorstate.0000 ; colorstate.0010 ; colorstate.0001 ;
-+-----------------+-----------------+-----------------+-----------------+
-; colorstate.0000 ; 0               ; 0               ; 0               ;
-; colorstate.0001 ; 1               ; 0               ; 1               ;
-; colorstate.0010 ; 1               ; 1               ; 0               ;
-+-----------------+-----------------+-----------------+-----------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate_frame                                                                                                          ;
++-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+; Name                  ; colorstate_frame.0101 ; colorstate_frame.0100 ; colorstate_frame.0011 ; colorstate_frame.0010 ; colorstate_frame.0001 ; colorstate_frame.0000 ;
++-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+; colorstate_frame.0000 ; 0                     ; 0                     ; 0                     ; 0                     ; 0                     ; 0                     ;
+; colorstate_frame.0001 ; 0                     ; 0                     ; 0                     ; 0                     ; 1                     ; 1                     ;
+; colorstate_frame.0010 ; 0                     ; 0                     ; 0                     ; 1                     ; 0                     ; 1                     ;
+; colorstate_frame.0011 ; 0                     ; 0                     ; 1                     ; 0                     ; 0                     ; 1                     ;
+; colorstate_frame.0100 ; 0                     ; 1                     ; 0                     ; 0                     ; 0                     ; 1                     ;
+; colorstate_frame.0101 ; 1                     ; 0                     ; 0                     ; 0                     ; 0                     ; 1                     ;
++-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+-----------------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate_line                                                                                                    ;
++----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+
+; Name                 ; colorstate_line.0101 ; colorstate_line.0100 ; colorstate_line.0011 ; colorstate_line.0010 ; colorstate_line.0001 ; colorstate_line.0000 ;
++----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+
+; colorstate_line.0000 ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ; 0                    ;
+; colorstate_line.0001 ; 0                    ; 0                    ; 0                    ; 0                    ; 1                    ; 1                    ;
+; colorstate_line.0010 ; 0                    ; 0                    ; 0                    ; 1                    ; 0                    ; 1                    ;
+; colorstate_line.0011 ; 0                    ; 0                    ; 1                    ; 0                    ; 0                    ; 1                    ;
+; colorstate_line.0100 ; 0                    ; 1                    ; 0                    ; 0                    ; 0                    ; 1                    ;
+; colorstate_line.0101 ; 1                    ; 0                    ; 0                    ; 0                    ; 0                    ; 1                    ;
++----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+----------------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -308,9 +327,15 @@ Encoding Type:  One-Hot
 ; lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_shift_reg:outclk_shift_h|shift_reg[5] ; Merged with lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_shift_reg:outclk_shift_l|shift_reg[4] ;
 ; lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_shift_reg:outclk_shift_l|shift_reg[2] ; Merged with lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_shift_reg:outclk_shift_h|shift_reg[3] ;
 ; lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_shift_reg:outclk_shift_l|shift_reg[3] ; Merged with lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_shift_reg:outclk_shift_h|shift_reg[4] ;
-; ltdc_de:ltdcrgb|colorstate~7                                                                                                                  ; Lost fanout                                                                                                                                               ;
-; ltdc_de:ltdcrgb|colorstate~8                                                                                                                  ; Lost fanout                                                                                                                                               ;
-; Total Number of Removed Registers = 22                                                                                                        ;                                                                                                                                                           ;
+; ltdc_de:ltdcrgb|colorstate_frame~8                                                                                                            ; Lost fanout                                                                                                                                               ;
+; ltdc_de:ltdcrgb|colorstate_frame~9                                                                                                            ; Lost fanout                                                                                                                                               ;
+; ltdc_de:ltdcrgb|colorstate_frame~10                                                                                                           ; Lost fanout                                                                                                                                               ;
+; ltdc_de:ltdcrgb|colorstate_frame~11                                                                                                           ; Lost fanout                                                                                                                                               ;
+; ltdc_de:ltdcrgb|colorstate_line~8                                                                                                             ; Lost fanout                                                                                                                                               ;
+; ltdc_de:ltdcrgb|colorstate_line~9                                                                                                             ; Lost fanout                                                                                                                                               ;
+; ltdc_de:ltdcrgb|colorstate_line~10                                                                                                            ; Lost fanout                                                                                                                                               ;
+; ltdc_de:ltdcrgb|colorstate_line~11                                                                                                            ; Lost fanout                                                                                                                                               ;
+; Total Number of Removed Registers = 28                                                                                                        ;                                                                                                                                                           ;
 +-----------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -339,43 +364,55 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 268   ;
+; Total registers                              ; 325   ;
 ; Number of registers using Synchronous Clear  ; 32    ;
-; Number of registers using Synchronous Load   ; 9     ;
+; Number of registers using Synchronous Load   ; 16    ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 78    ;
+; Number of registers using Clock Enable       ; 136   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+--------------------------------------------------+
-; Inverted Register Statistics                     ;
-+----------------------------------------+---------+
-; Inverted Register                      ; Fan out ;
-+----------------------------------------+---------+
-; ltdc_de:ltdcrgb|rgbdata[1]             ; 4       ;
-; ltdc_de:ltdcrgb|rgbdata[2]             ; 4       ;
-; ltdc_de:ltdcrgb|rgbdata[7]             ; 4       ;
-; ltdc_de:ltdcrgb|rgbdata[0]             ; 4       ;
-; ltdc_de:ltdcrgb|rgbdata[5]             ; 4       ;
-; ltdc_de:ltdcrgb|rgbdata[4]             ; 4       ;
-; ltdc_de:ltdcrgb|rgbdata[3]             ; 4       ;
-; ltdc_de:ltdcrgb|rgbdata[6]             ; 4       ;
-; Total number of inverted registers = 8 ;         ;
-+----------------------------------------+---------+
++---------------------------------------------------+
+; Inverted Register Statistics                      ;
++-----------------------------------------+---------+
+; Inverted Register                       ; Fan out ;
++-----------------------------------------+---------+
+; ltdc_de:ltdcrgb|rgbdata[0]              ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata[1]              ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata[2]              ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata[3]              ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata[4]              ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata[5]              ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata[6]              ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata[7]              ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata_frame[7]        ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata_frame[6]        ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata_frame[5]        ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata_frame[4]        ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata_frame[3]        ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata_frame[2]        ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata_frame[1]        ; 5       ;
+; ltdc_de:ltdcrgb|rgbdata_frame[0]        ; 5       ;
+; Total number of inverted registers = 16 ;         ;
++-----------------------------------------+---------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                        ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output              ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------+
-; 4:1                ; 7 bits    ; 14 LEs        ; 14 LEs               ; 0 LEs                  ; Yes        ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata[9]  ;
-; 4:1                ; 9 bits    ; 18 LEs        ; 18 LEs               ; 0 LEs                  ; Yes        ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata[21] ;
-; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata[7]  ;
-; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate  ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------+
+; 7:1                ; 6 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate_frame ;
+; 7:1                ; 7 bits    ; 28 LEs        ; 21 LEs               ; 7 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata_frame    ;
+; 7:1                ; 8 bits    ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata_frame    ;
+; 7:1                ; 7 bits    ; 28 LEs        ; 28 LEs               ; 0 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata_frame    ;
+; 7:1                ; 6 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|colorstate_line  ;
+; 7:1                ; 7 bits    ; 28 LEs        ; 21 LEs               ; 7 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata          ;
+; 7:1                ; 8 bits    ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata          ;
+; 7:1                ; 7 bits    ; 28 LEs        ; 28 LEs               ; 0 LEs                  ; No         ; |cy_lvdslcd|ltdc_de:ltdcrgb|rgbdata          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------+
@@ -868,26 +905,26 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; boundary_port         ; 7                           ;
 ; cycloneiii_ddio_out   ; 5                           ;
-; cycloneiii_ff         ; 268                         ;
-;     ENA               ; 53                          ;
+; cycloneiii_ff         ; 325                         ;
+;     ENA               ; 104                         ;
 ;     ENA SCLR          ; 16                          ;
-;     ENA SLD           ; 9                           ;
+;     ENA SLD           ; 16                          ;
 ;     SCLR              ; 16                          ;
-;     plain             ; 174                         ;
-; cycloneiii_lcell_comb ; 251                         ;
-;     arith             ; 80                          ;
-;         2 data inputs ; 72                          ;
-;         3 data inputs ; 8                           ;
-;     normal            ; 171                         ;
-;         0 data inputs ; 6                           ;
-;         1 data inputs ; 14                          ;
-;         2 data inputs ; 39                          ;
-;         3 data inputs ; 65                          ;
-;         4 data inputs ; 47                          ;
+;     plain             ; 173                         ;
+; cycloneiii_lcell_comb ; 470                         ;
+;     arith             ; 126                         ;
+;         2 data inputs ; 120                         ;
+;         3 data inputs ; 6                           ;
+;     normal            ; 344                         ;
+;         0 data inputs ; 8                           ;
+;         1 data inputs ; 10                          ;
+;         2 data inputs ; 34                          ;
+;         3 data inputs ; 98                          ;
+;         4 data inputs ; 194                         ;
 ; cycloneiii_pll        ; 2                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 5.00                        ;
-; Average LUT depth     ; 2.06                        ;
+; Max LUT depth         ; 10.00                       ;
+; Average LUT depth     ; 4.27                        ;
 +-----------------------+-----------------------------+
 
 
@@ -896,7 +933,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:01     ;
 +----------------+--------------+
 
 
@@ -906,7 +943,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
-    Info: Processing started: Mon Aug  8 19:14:19 2022
+    Info: Processing started: Tue Aug  9 17:11:40 2022
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off cy_lvdslcd -c cy_lvdslcd
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -1034,24 +1071,33 @@ Info (12128): Elaborating entity "lcd_serdes_tx_cmpr1" for hierarchy "lcd_serdes
 Info (12128): Elaborating entity "lcd_serdes_tx_shift_reg" for hierarchy "lcd_serdes_tx:tx_auo|altlvds_tx:ALTLVDS_TX_component|lcd_serdes_tx_lvds_tx:auto_generated|lcd_serdes_tx_shift_reg:outclk_shift_h" File: /home/jlywxy/project/cy_lvdslcd/db/lcd_serdes_tx_lvds_tx.v Line: 754
 Info (12128): Elaborating entity "ltdc_de" for hierarchy "ltdc_de:ltdcrgb" File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 41
 Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(87): truncated value with size 32 to match size of target (1) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 87
-Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(106): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 106
-Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(107): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 107
-Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(108): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 108
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(114): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 114
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(115): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 115
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(116): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 116
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(117): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 117
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(118): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 118
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(119): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 119
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(131): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 131
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(132): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 132
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(133): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 133
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(134): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 134
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(135): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 135
+Warning (10230): Verilog HDL assignment warning at cy_lvdslcd.v(136): truncated value with size 32 to match size of target (24) File: /home/jlywxy/project/cy_lvdslcd/cy_lvdslcd.v Line: 136
 Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 2 registers lost all their fanouts during netlist optimizations.
+Info (17049): 8 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file /home/jlywxy/project/cy_lvdslcd/output_files/cy_lvdslcd.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 17 node(s), including 5 DDIO, 2 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 395 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 680 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 1 input pins
     Info (21059): Implemented 6 output pins
-    Info (21061): Implemented 381 logic cells
+    Info (21061): Implemented 666 logic cells
     Info (21065): Implemented 2 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 429 megabytes
-    Info: Processing ended: Mon Aug  8 19:14:27 2022
-    Info: Elapsed time: 00:00:08
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 15 warnings
+    Info: Peak virtual memory: 430 megabytes
+    Info: Processing ended: Tue Aug  9 17:11:49 2022
+    Info: Elapsed time: 00:00:09
     Info: Total CPU time (on all processors): 00:00:17
 
 

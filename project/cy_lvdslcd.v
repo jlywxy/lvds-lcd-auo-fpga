@@ -38,7 +38,7 @@ lcd_serdes_tx	tx_auo (.tx_in ( serdes ),.tx_inclock ( clk ),
 
 wire [23:0]rgb;
 wire de;
-ltdc_de ltdcrgb(.clk(clk),.rgbdata(rgb),.de(de));
+ltdc_de ltdcrgb(.clk(clk),.rgbdata_out(rgb),.de(de));
 
 always @(posedge clk)begin
 	//serdes <= 28'b0 |(de<<18)|(rgb[23:15]<<21)|(rgb[7:0]);
@@ -64,7 +64,7 @@ endmodule
 
 module ltdc_de(
 	input clk,
-	output reg [23:0]rgbdata,
+	output reg [23:0]rgbdata_out,
 	output de
 );
 
@@ -86,8 +86,13 @@ initial begin
 end
 assign de=(h>=HBP&&v>=VBP)?1:0;
 
-reg [3:0]colorstate;
+reg [3:0]colorstate_frame;
+reg [3:0]colorstate_line;
+reg [23:0]rgbdata;
+reg [23:0]rgbdata_frame;
+initial rgbdata_frame=24'h0000ff;
 initial rgbdata=24'h0000ff;
+
 
 always @(posedge clk)begin
 	if(h<HTOTAL)begin
@@ -95,17 +100,41 @@ always @(posedge clk)begin
 	end
 	else begin
 		h<=0;
+		
 		if(v<VTOTAL)begin
 			v<=v+1'b1;
+			
+			if(rgbdata[7:0]==8'hff&&rgbdata[15:8]<8'hff&&rgbdata[23:16]==0)colorstate_line=0;
+				else if(rgbdata[15:8]==8'hff&&rgbdata[7:0]>0&&rgbdata[23:16]==0)colorstate_line=1;
+				else if(rgbdata[15:8]==8'hff&&rgbdata[23:16]<8'hff&&rgbdata[7:0]==0)colorstate_line=2;
+				else if(rgbdata[23:16]==8'hff&&rgbdata[15:8]>0&&rgbdata[7:0]==0)colorstate_line=3;
+				else if(rgbdata[23:16]==8'hff&&rgbdata[7:0]<8'hff&&rgbdata[15:8]==0)colorstate_line=4;
+				else if(rgbdata[7:0]==8'hff&&rgbdata[23:16]>0&&rgbdata[15:8]==0)colorstate_line=5;
+				
+				if(colorstate_line==0)rgbdata=24'h0000ff|((rgbdata[15:8]+1)<<8);
+				else if(colorstate_line==1)rgbdata=(rgbdata[7:0]-1)|24'h00ff00;
+				else if(colorstate_line==2)rgbdata=24'h00ff00|((rgbdata[23:16]+1)<<16);
+				else if(colorstate_line==3)rgbdata=((rgbdata[15:8]-1)<<8)|24'hff0000;
+				else if(colorstate_line==4)rgbdata=24'hff0000|(rgbdata[7:0]+1);
+				else if(colorstate_line==5)rgbdata=((rgbdata[23:16]-1)<<16)|24'h0000ff;
+				rgbdata_out=rgbdata;
 		end
 		else begin
 			v<=0;
-			if(rgbdata[7:0]==8'hff)colorstate=0;
-				else if(rgbdata[15:8]==8'hff)colorstate=1;
-				else if(rgbdata[23:16]==8'hff)colorstate=2;
-				if(colorstate==0)rgbdata<=(rgbdata[7:0]-1)|(rgbdata[15:8]+1)<<8;
-				else if(colorstate==1)rgbdata<=(rgbdata[23:16]+1)<<16|(rgbdata[15:8]-1)<<8;
-				else if(colorstate==2)rgbdata<=(rgbdata[23:16]-1)<<16|(rgbdata[7:0]+1);
+			   if(rgbdata_frame[7:0]==8'hff&&rgbdata_frame[15:8]<8'hff&&rgbdata_frame[23:16]==0)colorstate_frame=0;
+				else if(rgbdata_frame[15:8]==8'hff&&rgbdata_frame[7:0]>0&&rgbdata_frame[23:16]==0)colorstate_frame=1;
+				else if(rgbdata_frame[15:8]==8'hff&&rgbdata_frame[23:16]<8'hff&&rgbdata_frame[7:0]==0)colorstate_frame=2;
+				else if(rgbdata_frame[23:16]==8'hff&&rgbdata_frame[15:8]>0&&rgbdata_frame[7:0]==0)colorstate_frame=3;
+				else if(rgbdata_frame[23:16]==8'hff&&rgbdata_frame[7:0]<8'hff&&rgbdata_frame[15:8]==0)colorstate_frame=4;
+				else if(rgbdata_frame[7:0]==8'hff&&rgbdata_frame[23:16]>0&&rgbdata_frame[15:8]==0)colorstate_frame=5;
+				
+				if(colorstate_frame==0)rgbdata_frame=24'h0000ff|((rgbdata_frame[15:8]+1)<<8);
+				else if(colorstate_frame==1)rgbdata_frame=(rgbdata_frame[7:0]-1)|24'h00ff00;
+				else if(colorstate_frame==2)rgbdata_frame=24'h00ff00|((rgbdata_frame[23:16]+1)<<16);
+				else if(colorstate_frame==3)rgbdata_frame=((rgbdata_frame[15:8]-1)<<8)|24'hff0000;
+				else if(colorstate_frame==4)rgbdata_frame=24'hff0000|(rgbdata_frame[7:0]+1);
+				else if(colorstate_frame==5)rgbdata_frame=((rgbdata_frame[23:16]-1)<<16)|24'h0000ff;
+				rgbdata=rgbdata_frame;
 		end
 	end
 end

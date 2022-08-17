@@ -1,5 +1,5 @@
 Flow report for cy_lvdslcd
-Mon Aug  8 19:14:39 2022
+Tue Aug  9 17:12:01 2022
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -41,17 +41,17 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Mon Aug  8 19:14:39 2022       ;
+; Flow Status                        ; Successful - Tue Aug  9 17:12:01 2022       ;
 ; Quartus Prime Version              ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                      ; cy_lvdslcd                                  ;
 ; Top-level Entity Name              ; cy_lvdslcd                                  ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE10F17C8                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 369 / 10,320 ( 4 % )                        ;
-;     Total combinational functions  ; 251 / 10,320 ( 2 % )                        ;
-;     Dedicated logic registers      ; 268 / 10,320 ( 3 % )                        ;
-; Total registers                    ; 268                                         ;
+; Total logic elements               ; 615 / 10,320 ( 6 % )                        ;
+;     Total combinational functions  ; 470 / 10,320 ( 5 % )                        ;
+;     Dedicated logic registers      ; 325 / 10,320 ( 3 % )                        ;
+; Total registers                    ; 325                                         ;
 ; Total pins                         ; 12 / 180 ( 7 % )                            ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0 / 423,936 ( 0 % )                         ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 08/08/2022 19:14:19 ;
+; Start date & time ; 08/09/2022 17:11:40 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; cy_lvdslcd          ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------------+----------------------------------------+---------------+-------------+-----------------------------------+
 ; Assignment Name                      ; Value                                  ; Default Value ; Entity Name ; Section Id                        ;
 +--------------------------------------+----------------------------------------+---------------+-------------+-----------------------------------+
-; COMPILER_SIGNATURE_ID                ; 52227960309.165995725902748            ; --            ; --          ; --                                ;
+; COMPILER_SIGNATURE_ID                ; 52227960309.166003630018182            ; --            ; --          ; --                                ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --          ; cy_lvdslcd_vlg_tst                ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST      ; Off                                    ; --            ; --          ; eda_board_design_timing           ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST      ; Off                                    ; --            ; --          ; eda_board_design_boundary_scan    ;
@@ -117,12 +117,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:08     ; 1.0                     ; 421 MB              ; 00:00:16                           ;
-; Fitter               ; 00:00:04     ; 1.0                     ; 987 MB              ; 00:00:05                           ;
-; Assembler            ; 00:00:00     ; 1.0                     ; 362 MB              ; 00:00:01                           ;
-; Timing Analyzer      ; 00:00:02     ; 1.0                     ; 479 MB              ; 00:00:01                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 613 MB              ; 00:00:00                           ;
-; Total                ; 00:00:15     ; --                      ; --                  ; 00:00:23                           ;
+; Analysis & Synthesis ; 00:00:09     ; 1.0                     ; 426 MB              ; 00:00:17                           ;
+; Fitter               ; 00:00:04     ; 1.1                     ; 982 MB              ; 00:00:05                           ;
+; Assembler            ; 00:00:00     ; 1.0                     ; 363 MB              ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:02     ; 1.1                     ; 486 MB              ; 00:00:02                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 612 MB              ; 00:00:00                           ;
+; Total                ; 00:00:16     ; --                      ; --                  ; 00:00:25                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
