@@ -1,37 +1,136 @@
-# Altera-Based FPGA LVDS LCD Driver
-This project is driving LCDs with LVDS signal input(AUO G070VW01 V0) using Altera Cyclone IV EP4CE10F17C8N<br>
-Version: 0.2
+# LVDS-Interface LCD Driver for AUO G070VW01 V0 using FPGA
 
-## What could it do now
-Display full-screen switching color gradient (waterfall) animation.
+This project is managing to drive LCD(AUO G070VW01 V0) using Altera Cyclone IV EP4CE10F17C8N FPGA via LVDS interface.
+
+Author: jlywxy (jlywxy@outlook.com)<br>
+Document Version: 2.0
+- --
+
+## Overview of the LCM Interface 
+
+### 1. Display Interface
+
+The display and control interface satisfied with JEIDA LVDS format.
+```
+AUO - G070VW01 V0
+
+Electrical-Level        | Speed        | Wires
+--------------------------------------------------
+1.2v-LVDS with 3.3v VDD | 33.3*7 MHz   | 1port,3/4lane(2clk,6/8data)
+
+```
+* This display will not use HSYNC and VSYNC signal (DE mode only), and with selectable 6/8 bit color depth.
+
+### 2. Backlight Interface
+
+This LCM requires 12v single power with max 240mA current with internal backlight driver. 
+
+### 3. Connector
+
+The part number of Mating connector is below:
+```
+AUO - G070VW01 V0
+
+CN1(LVDS, VDD, control)          | Pin 
+--------------------------------------------------
+STM P24013P20/Hirose DF19-20S-1C | 20pins with 1.27mm interval
+
+CN2(Backlight and Dimming) | Pin
+--------------------------------------------------
+Entery H208K-P04N-02B      | 4pins with 1.27mm interval
+```
+- --
+
+## Availability Test
+1. The test method of availability in this project is showing waterflow color gradient animation.<br>
 <img src="demo2.jpg" width=250>
+- --
 
-## Important knowledge bases of signal timing
-1. It's necessary to use PLL to generate clock within LCD specification requirements.
-2. ALTLVDS_TX IP is used for LVDS transmitting, with settings of: 
-* serialization factor is 7, <br>
-* transmitting speed is 7 times of input clock, <br>
-* output clock duty cycle is 57.<br>
-However, this setting will generate 3 bits of data misplace to the output clock(compare to JEIDA 28bit format): DE bit(in SERDES rx) should be at position 21 but now using 18. In each lane, 4 bits in MSB should be in the current pixel, while the left 3 bits in LSB should be in the coming pixel.
-~~<b>This is still not fixed</b>, because Questa couldn't simulate correct ALTLVDS waveforms therefore not able to find what's wrong with ALTLVDS configurations.~~<br>
-The recommended solutions: 
-* register current pixel data and use last registerd pixel to replace misplaced bits in each lane when new pixel data arrived.
-* use an additional lane with constant data `7'b1100011` as clock to satisfy JEIDA format.
-* find a way to correct the ALTLVDS clock output waveform(not resolved in this project).
+## Display Workflow(Steps to light up display)
 
-## Performance and availability assumption
-* This FPGA could probably provide 4x5 LVDS channels up to 90MHz of pixel clock (640Mbps max of LVDS speed), which means this FPGA could drive a 2-channel(10 LVDS lanes) LVDS screen up to 1920*1200 resolution at 60Hz with two more LVDS screens.
-* This FPGA could drive LCDs/OLEDs with RGB/LVDS/miniLVDS/8080/SPI signals without additional chips, and probably supporting MIPI/eDP screens via bridging chips (this will be test in further projects). <br>
-For the project driving RGB LCDs, check out https://github.com/jlywxy/lg-cpld-ltdc
+0. Backlight power on.
+1. LCM VDD on, Reset.
+3. Start LVDS transmission.
 
-## Alerts of Connections and tramsmissions
-1. LVDS signal lines should be twisted-pairs. When connecting twisted-pair lines to 2.54 pin headers of FPGA board, soldering of line contacts are needed to reduce conduction problem. Using separated 2.54 pin connector is not recommended, except dual-row 10-pin continuous pin connector shown in the demo pic.
-2. Although using True LVDS transceiver in 2.5v banks is faithful, it's not very lucky to find those pin enough on your FPGA development board. Therefore, it may be ok to use pins of Emulated LVDS transceiver(LVDS_E_3R) WITHOUT resistor network (even bank with 3.3v VCCIO) to drive the screen. 
-* Pins below was tested and works well similar to those True LVDS transceivers:<br>
-`T14-T15, R13-T13, R12-T12, R11-T11, R10-T10 (Bank4)`<br>
-`B13-A13, B12-A12, B11-A11, B10-A10, D9-C9 (Bank7)`,<br>
-* Pins above tested are the most 10 impedent pins on my FPGA board, you could test pins on your board which are impedent as well.<br>
-* There are still a bit difference between Emulated LVDS and True LVDS of Altera.<br>
-True LVDS pins are paired and use true transmitting buffer, which means electric level of the pin is already satisfied with most LVDS specifications of LCDs. Emulated LVDS pins only uses two single-end pins without true buffers, that means electric level of two pins are LVTTL/LVCMOS(not confirmed) and opposite with each other, but still slightly satisfied some LCD LVDS signal requirement.<br>
-For other LCDS with harsh requirements to signal specifications, using Emulated LVDS without 2.5v VCCIO and resistor network may not works every time.
-3. For pin usages in this project, check out Pin Planner in the Quartus project.
+- --
+
+## FPGA configurations for Display Workflow
+
+1. Use pins with LVDS electrical level. It's better to use 2.5V Bank VCCIO for LVDS output pin.
+2. USE ALTLVDS_TX IP to convert parallel data to serial.
+Set serialization factor to 7, transmitting speed to 7 times of CLK, output clock duty cycle to 57.
+It is recommended to use a additional data lane as CLK output(1100011), because clock phase setting of this IP not works and cause LVDS output cannot satisfy with JEIDA format.
+- --
+
+## Connection and Transmission Concepts 
+
+1. Since LVDS is differential, it's better to use twisted-pairs of long transmission line. If you are drawing PCB, make sure lines are close enough, have continuous GND layer wrapping, have same length and satisfy LVDS 100 Ohm impedance (calculate wire width and interval using Polar SI9000 or compatible).
+2. Avoid using separate pin connector. Use continus pin header and connector for LVDS lines. When line need to be lengthening, soldering line contact is needed.
+3. Although LVDS theoretical electric level of LCD is almost limited, it is tested to use 3.3v Bank VCCIO (Altera LVDS_E_3R) for LCD LVDS transmission even without indicated "E_3R"(external 3 resistors).
+4. LVDS transmissions on Altera FPGAs are splited to 2 types: True LVDS ans Emulated LVDS, which True LVDS use hardware LVDS transmitter and Emulated LVDS uses two single-ended pins to emulated differential. The speed of True LVDS could reach up to 840Mbps, which Emulated one reaches max 640Mbps. For Cyclone IV, only 2 IO banks have True LVDS transmitter.
+- --
+
+## Misc
+
+### LCM Optical Characteristics
+
+```
+AUO - G070VW01 V0
+
+Pixel-Arrangement      | Panel-Type | Color-Depth
+-------------------------------------------------
+RGB horizontal stripes | TN         | 8-bit(16.2M)
+
+
+Contrast | Color-Chromaticity | Backlight
+-------------------------------------------------
+750:1    | 60% NTSC           | 400 nits
+```
+
+### Knowledge Bases of Concepts
+
+1. LVDS
+
+LVDS is a type of differential transmission, which uses 2 wires (Positive line and Negative line) to transmit 1 bit. The electric level in two lines is swinging(±300mV) around a fixed voltage (common voltage, typically 1.2v). When Positive line level is higher than Negative line, the differential line indicate `1`.
+The use of differential is intended to reduce EMI and promote transmission speed.
+
+2. JEIDA LVDS format
+
+LVDS data format in LCD is simply packing RGB control/data signal in serial. JEIDA format of LVDS LCD is shown below:
+```
+CLK   | ▔▔▔ ▔▔▔|___ ___ ___|▔▔▔ ▔▔▔
+Lane0 |  G0  R5  R4  R3  R2  R1  R0
+Lane1 |  B1  B0  G5  G4  G3  G2  G1
+Lane2 |  DE  VS  HS  B5  B4  B3  B2
+Lane3 |  x   B7  B6  G7  G6  R7  R6
+
+(Lane3 is not used when using RGB666)
+```
+RGB is a parallel interface, which is known as MIPI DPI specification.
+
+3. MIPI DPI
+
+* The MIPI Alliance defines modern interface of mobile devices like phones, including display, cameras, etc. 
+* MIPI-DPI is one of the MIPI display interface series, which is well known as RGB/Parallel/LTDC interface. This interface splits control lines(HSYNC/VSYNC/DE) with data lines(RGB parallel lines). Since it uses single-ended signals(compared to MIPI-DSI), the max speed(clock speed) could be limited, but it can transfer full pixel data in one clock period(compared to serial interfaces). The color depth is configurable as RGB565/RGB666/RGB888 and more, which could also be 'hacked' to leave out some pins or branch some lines(when downsampling color depth, throw away certain LSB; when upsampling, branch certain MSB to LSB or connect certain LSB to GND).
+```
+RGB888 (typical format of 16.7M color display)
+-------------------------------------------------
+       RRRRRRRR GGGGGGGG BBBBBBBB (3 bytes)
+
+RGB666 (typical format of 262k color display, and 16.2M color TN panels with FRC)
+-------------------------------------------------
+             RR RRRRGGGG GGBBBBBB (18 bits)
+
+RGB565
+-------------------------------------------------
+                RRRRRGGG GGGBBBBB (2 bytes)
+
+RGB101010 (not available in most of the displays, typical format of 1.07B color screen)
+-------------------------------------------------
+RRRRRR RRRRGGGG GGGGGGBB BBBBBBBB (30 bits)
+```
+
+4. LCM
+
+* A abbreviation of Liquid Crystal Module, which includes LCD glass panel and backlight LEDs.
+
