@@ -1,55 +1,51 @@
-# LVDS-Interface LCD Driver for AUO G070VW01 V0 using FPGA
+# Driving LVD LCD (AUO G070VW01 V0) using FPGA
 
-This project is managing to drive LCD(AUO G070VW01 V0) using Altera Cyclone IV EP4CE10F17C8N FPGA via LVDS interface.
+This project is driving LCD(AUO G070VW01 V0) using Altera Cyclone IV EP4CE10F17C8N FPGA via LVDS interface.
 
 Author: jlywxy (jlywxy@outlook.com)<br>
-Document Version: 2.0
+Document Version: 2.0r1
 - --
 
-## Overview of the LCM Interface 
+## Overview of the LCD Interface 
 
 ### 1. Display Interface
 
 The display and control interface satisfied with JEIDA LVDS format.
-```
-AUO - G070VW01 V0
 
-Electrical-Level        | Speed        | Wires
---------------------------------------------------
-1.2v-LVDS with 3.3v VDD | 33.3*7 MHz   | 1port,3/4lane(2clk,6/8data)
+| Signal Electrical-Level | Speed | Signal Wires | Power Supply
+|-|-|-|-|
+| 1.2v-LVDS | 33.3*7 MHz | LVDS(3/4 lanes(2 clk, 6/8 data)) | 3.3v |
 
-```
+
 * This display will not use HSYNC and VSYNC signal (DE mode only), and with selectable 6/8 bit color depth.
 
 ### 2. Backlight Interface
 
-This LCM requires 12v single power with max 240mA current with internal backlight driver. 
+This LCD requires 12v single power with max 240mA current with internal backlight driver. 
 
 ### 3. Connector
 
 The part number of Mating connector is below:
-```
-AUO - G070VW01 V0
 
-CN1(LVDS, VDD, control)          | Pin 
---------------------------------------------------
-STM P24013P20/Hirose DF19-20S-1C | 20pins with 1.27mm interval
+|CN1(LVDS, VDD, control)          | Pins |
+|-|-|
+| STM P24013P20/Hirose DF19-20S-1C | 20pins with 1.27mm interval |
 
-CN2(Backlight and Dimming) | Pin
---------------------------------------------------
-Entery H208K-P04N-02B      | 4pins with 1.27mm interval
-```
+| CN2(Backlight and Dimming) | Pins |
+|-|-|
+| Entery H208K-P04N-02B | 4pins with 1.27mm interval |
+
 - --
 
-## Availability Test
-1. The test method of availability in this project is showing waterflow color gradient animation.<br>
+## Intention of the project
+1. Showing waterflow color gradient animation.<br>
 <img src="demo2.jpg" width=250>
 - --
 
 ## Display Workflow(Steps to light up display)
 
 0. Backlight power on.
-1. LCM VDD on, Reset.
+1. LCD VDD on, Reset.
 3. Start LVDS transmission.
 
 - --
@@ -72,20 +68,17 @@ It is recommended to use a additional data lane as CLK output(1100011), because 
 
 ## Misc
 
-### LCM Optical Characteristics
-
-```
-AUO - G070VW01 V0
-
-Pixel-Arrangement      | Panel-Type | Color-Depth
--------------------------------------------------
-RGB horizontal stripes | TN         | 8-bit(16.2M)
+### LCD Optical Characteristics
 
 
-Contrast | Color-Chromaticity | Backlight
--------------------------------------------------
-750:1    | 60% NTSC           | 400 nits
-```
+| Pixel-Arrangement | Panel-Type | Color-Depth |
+|-|-|-|
+| RGB horizontal stripes | TN | 6/8bit, 16.2M |
+
+| Contrast | Color-Chromaticity | Backlight |
+|-|-|-|
+| 750:1 | 60% NTSC | 400 nits |
+
 
 ### Knowledge Bases of Concepts
 
@@ -97,15 +90,17 @@ The use of differential is intended to reduce EMI and promote transmission speed
 2. JEIDA LVDS format
 
 LVDS data format in LCD is simply packing RGB control/data signal in serial. JEIDA format of LVDS LCD is shown below:
-```
-CLK   | ▔▔▔ ▔▔▔|___ ___ ___|▔▔▔ ▔▔▔
-Lane0 |  G0  R5  R4  R3  R2  R1  R0
-Lane1 |  B1  B0  G5  G4  G3  G2  G1
-Lane2 |  DE  VS  HS  B5  B4  B3  B2
-Lane3 |  x   B7  B6  G7  G6  R7  R6
+|||||||||
+|-|-|-|-|-|-|-|-|
+|CLK   | 1 | 1 | 0 | 0 | 0 | 1  | 1 |
+|Lane0 | G0 | R5 | R4 | R3 | R2 | R1 | R0 |
+|Lane1 | B1 | B0 | G5 | G4 | G3 | G2 | G1 |
+|Lane2 | DE | VS | HS | B5 | B4 | B3 | B2 |
+|Lane3 |  x | B7 | B6 | G7 | G6 | R7 | R6 |
 
-(Lane3 is not used when using RGB666)
-```
+* Note 1: sequence above is starting right from one LVDS period.
+* Note 2: Lane3 is not used when using RGB666)
+
 RGB is a parallel interface, which is known as MIPI DPI specification.
 
 3. MIPI DPI
@@ -130,7 +125,11 @@ RGB101010 (not available in most of the displays, typical format of 1.07B color 
 RRRRRR RRRRGGGG GGGGGGBB BBBBBBBB (30 bits)
 ```
 
-4. LCM
 
-* A abbreviation of Liquid Crystal Module, which includes LCD glass panel and backlight LEDs.
 
+
+### Document Patch and Errata
+
+* Fixed document format problem: charts.<br>
+
+patch above: jlywxy@2023.2.8<br>
