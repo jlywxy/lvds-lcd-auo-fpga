@@ -1,3 +1,3 @@
-<b>Note: the contents of this repo is moved/merged to a more centralized project.</b><br>
+<b>Note: the contents of this repo is moved to a more centralized repo.</b><br>
 Do not submit issue or fork for this repo.<br>
-visit https://github.com/jlywxy/lcd-tests or https://jlywxy.top/?jwdocs&sim=1&loc=auo_lvds
+visit https://github.com/jlywxy/project-display
